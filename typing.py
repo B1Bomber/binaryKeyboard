@@ -12,7 +12,7 @@ def binary_to_ascii(binary_value):
 
     return ascii_value;
 
-#serial.Serial(<port>, <baud rate>)
+#arduino = serial.Serial(port = 'COM7', baudrate = 9600, timeout = 1) 
 serialcomm = serial.Serial('COM7', 9600)
 serialcomm.timeout = 1
 
