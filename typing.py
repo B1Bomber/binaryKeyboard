@@ -2,6 +2,16 @@ import serial
 import time
 import pyautogui
 
+def binary_to_ascii(binary_value):
+    if len(binary_value) != 8
+        raise Error("Input must be a 8-bit binary string");
+    
+    decimal_value = int(binary_value,2);
+
+    ascii_value = chr(decimal_value);
+
+    return ascii_value;
+
 #serial.Serial(<port>, <baud rate>)
 serialcomm = serial.Serial('COM7', 9600)
 serialcomm.timeout = 1
