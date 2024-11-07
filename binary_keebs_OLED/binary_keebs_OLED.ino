@@ -79,6 +79,8 @@ void enterFunction(){
   atoi(binary);
   // have python do this instead
 
+  Serial.display(binary);
+
   //debug
   Serial.println(binary);
 
