@@ -36,7 +36,7 @@ void setup() {
   pinMode(enter, INPUT_PULLUP);
   
   //debug
-  Serial.begin(800);
+  Serial.begin(9600);
 }
 
 void loop(){
@@ -113,7 +113,7 @@ void binaryKeb(){
     binary[index - 1] = 0;
   }
   else if ((digitalRead(one) == 0) && (digitalRead(enter) == 0)){
-    display.clear();
+    display.clearDisplay();
     col = 1;
     display.print("[________]");
   }
