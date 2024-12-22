@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
+#include "U8x8lib.h"
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
@@ -36,7 +37,7 @@ void setup() {
   pinMode(enter, INPUT_PULLUP);
   
   //debug
-  Serial.begin(9600);
+  Serial.begin(800);
 }
 
 void loop(){
@@ -78,8 +79,6 @@ void enterFunction(){
   //conversion
   atoi(binary);
   // have python do this instead
-
-  Serial.display(binary);
 
   //debug
   Serial.println(binary);
