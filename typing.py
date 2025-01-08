@@ -24,7 +24,7 @@ def main():
     # maybe reading the serial should be outside?
     # try testing this
 
-    if fromSerial == "star":
+    if fromSerial == "starOn":
         # for switching to osu keyboard down the line
         return
     

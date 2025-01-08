@@ -53,6 +53,7 @@ void loop(){
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             OSUKeyboard = true;
+            Serial.println("starOn");
             changeKeyboard(OSUKeyboard);
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
@@ -149,6 +150,7 @@ void changeKeyboard(bool & keyboardOSU){
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
+            Serial.println("starOff");
         }
     }
 }
