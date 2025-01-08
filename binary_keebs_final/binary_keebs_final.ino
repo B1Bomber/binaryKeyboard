@@ -12,23 +12,25 @@ const int reset = -1;
 
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, reset);
 
-const int zeroPin = 12;
-const int onePin = 11;
-const int enterPin = 10;
+const int zeroButton = 12;
+const int oneButton = 11;
+const int enterButton = 10;
 
 bool OSUKeyboard = false;
 int displayCursorColumn = 12;
 // increases by 12
 
-char binary[8] = {};
+char binary[9] = {};
+binary[8] = '\0';
+
 int binaryIndex = 0;
 
 void setup(){
-    Serial.begin(115200);
+    Serial.begin(9600);
 
-    pinMode(zero, INPUT_PULLUP);
-    pinMode(one, INPUT_PULLUP);
-    pinMode(enter, INPUT_PULLUP);
+    pinMode(zeroButton, INPUT_PULLUP);
+    pinMode(oneButton, INPUT_PULLUP);
+    pinMode(enterButton, INPUT_PULLUP);
 
     display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
     display.display();
@@ -39,30 +41,29 @@ void setup(){
 }
 
 void loop(){
-    if (binaryIndex > 7){
-        pressEnter();
-        continue;
+    while (binaryIndex < 8){
+        if (digitalRead(zeroButton) == LOW){
+            pressZero();
+        }
+        else if (digitalRead(oneButton) == LOW){
+            pressOne();
+        }
+        else if (digitalRead(enterButton) == LOW){
+            pressEnter();
+        }
+        else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
+            OSUKeyboard = true;
+            changeKeyboard(OSUKeyboard);
+        }
+        else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
+            pressBack();
+        }
+        else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
+            pressClear();
+        }
     }
 
-    if (zeroPin == LOW){
-        pressZero();
-    }
-    else if (onePin == LOW){
-        pressOne();
-    }
-    else if (enterPin == LOW){
-        pressEnter();
-    }
-    else if (zeroPin == LOW && enterPin == LOW){
-        OSUKeyboard = true;
-        changeKeyboard(OSUKeyboard);
-    }
-    else if (onePin == LOW && enterPin == LOW){
-        pressBack();
-    }
-    else if (zeroPin == LOW && onePin == LOW && enterPin == LOW){
-        pressClear();
-    }
+    pressEnter();
 }
 
 void startText(){
@@ -81,27 +82,35 @@ void startText(){
 }
 
 void pressZero(){
-    displayPress("0");
-    binary[binaryIndex] = "0";
+    displayPress('0');
+    
+    binary[binaryIndex] = '0';
 
     binaryIndex += 1;
     displayCursorColumn += 12;
+
+    Serial.println("Pressed 0");
 }
 
 void pressOne(){
-    displayPress("1");
-    binary[binaryIndex] = "1";
+    displayPress('1');
+    binary[binaryIndex] = '1';
 
     binaryIndex += 1;
     displayCursorColumn += 12;
+
+    Serial.println("Pressed 1");
 }
 
 void pressEnter(){
+    Serial.print(binary);
 
+    pressClear();
 }
 
 void pressBack(){
-    displayPress(" ");
+    display.fillRect(displayCursorColumn, 0, 12, 16, BLACK);
+    display.display();
     binary[binaryIndex] = NULL;
 }
 
@@ -114,7 +123,9 @@ void pressClear(){
 
     displayCursorColumn = 12;
 
-    binary[8] = {};
+    binary[9] = {};
+    binary[8] = '\0';
+
     binaryIndex = 0;
 }
 
@@ -127,13 +138,15 @@ void changeKeyboard(bool & keyboardOSU){
     display.display();
 
     while (keyboardOSU == true){
-        if (zeroPin == LOW){
+        if (digitalRead(zeroButton) == LOW){
             // press z key
+            Serial.println("Z");
         }
-        else if (onePin == LOW){
+        else if (digitalRead(oneButton) == LOW){
             // press x key
+            Serial.println("X")
         }
-        else if (zeroPin == LOW && enterPin == LOW){
+        else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
         }
@@ -142,7 +155,7 @@ void changeKeyboard(bool & keyboardOSU){
 
 void displayPress(char input){
     display.setCursor(displayCursorColumn, 0);
-    display.println(" ");
-    display.println(input);
+    display.fillRect(displayCursorColumn, 0, 12, 16, BLACK);
+    display.print(input);
     display.display();
 }
