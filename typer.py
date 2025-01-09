@@ -1,12 +1,15 @@
 import serial
-import time
+#import time
 import pyautogui
 
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
 
-serialcomm = serial.Serial('/dev/cu.usbserial-1120', 9600)
+#serialcomm = serial.Serial('/dev/cu.usbserial-1120', 9600)
 # put your usb port as the first argument
+# put your baud rate as the second argument
+
+serialcomm = serial.Serial('/dev/cu.usbserial-10', 9600)
 
 serialcomm.timeout = 1
 

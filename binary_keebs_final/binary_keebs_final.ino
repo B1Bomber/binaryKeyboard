@@ -20,8 +20,7 @@ bool OSUKeyboard = false;
 int displayCursorColumn = 12;
 // increases by 12
 
-char binary[9] = {};
-binary[8] = '\0';
+char binary[9];
 
 int binaryIndex = 0;
 
@@ -42,21 +41,21 @@ void setup(){
 
 void loop(){
     while (binaryIndex < 8){
-        if (digitalRead(zeroButton) == LOW){
+        if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressZero();
         }
-        else if (digitalRead(oneButton) == LOW){
+        else if (digitalRead(oneButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressOne();
         }
-        else if (digitalRead(enterButton) == LOW){
+        else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
             pressEnter();
         }
-        else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
+        else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(oneButton) == HIGH){
             OSUKeyboard = true;
             Serial.println("starOn");
             changeKeyboard(OSUKeyboard);
         }
-        else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
+        else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
             pressBack();
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
@@ -104,7 +103,9 @@ void pressOne(){
 }
 
 void pressEnter(){
-    Serial.print(binary);
+    if (binaryIndex == 8){
+        Serial.println(binary);
+    }
 
     pressClear();
 }
@@ -121,6 +122,7 @@ void pressClear(){
     display.setTextColor(WHITE);
     display.setCursor(0, 0);
     display.println("<________>");
+    display.display();
 
     displayCursorColumn = 12;
 
@@ -145,7 +147,12 @@ void changeKeyboard(bool & keyboardOSU){
         }
         else if (digitalRead(oneButton) == LOW){
             // press x key
-            Serial.println("X")
+            Serial.println("X");
+        }
+        else if (digitalRead(enterButton) == LOW){
+            // put the previous entered bits in
+            keyboardOSU = false;
+            Serial.println("starOff");
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             // put the previous entered bits in
