@@ -16,13 +16,14 @@ const int zeroButton = 12;
 const int oneButton = 11;
 const int enterButton = 10;
 
-bool OSUKeyboard = false;
 int displayCursorColumn = 12;
 // increases by 12
 
 char binary[9];
 
 int binaryIndex = 0;
+
+bool osuKeyboard = false;
 
 void setup(){
     Serial.begin(9600);
@@ -51,11 +52,15 @@ void loop(){
         }
         else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
             pressEnter();
+            delay(350);
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(oneButton) == HIGH){
-            OSUKeyboard = true;
+            osuKeyboard = true;
             Serial.println("starOn");
-            changeKeyboard(OSUKeyboard);
+            changeKeyboard(osuKeyboard);
+            delay(500);
+            pressClear();
+            refillDisplay();
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
             pressBack();
@@ -63,6 +68,7 @@ void loop(){
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
             pressClear();
+            delay(350);
         }
     }
 
@@ -149,22 +155,24 @@ void changeKeyboard(bool & keyboardOSU){
         if (digitalRead(zeroButton) == LOW){
             // press z key
             Serial.println("Z");
+            delay(250);
         }
         else if (digitalRead(oneButton) == LOW){
             // press x key
             Serial.println("X");
+            delay(250);
         }
         else if (digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
-            refillDisplay();
             Serial.println("starOff");
+            delay(350);
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
-            refillDisplay();
             Serial.println("starOff");
+            delay(350);
         }
     }
 }
@@ -177,7 +185,7 @@ void displayPress(char input){
 }
 
 void refillDisplay(){
-    for (i = 0; i < 9; i++){
+    for (int i = 0; i < 9; i++){
         if (binary[i] == '0'){
             pressZero();
         }
