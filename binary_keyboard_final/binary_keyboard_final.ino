@@ -43,9 +43,11 @@ void loop(){
     while (binaryIndex < 8){
         if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressZero();
+            delay(350);
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressOne();
+            delay(350);
         }
         else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
             pressEnter();
@@ -57,13 +59,16 @@ void loop(){
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
             pressBack();
+            delay(350);
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
             pressClear();
         }
     }
 
+
     pressEnter();
+
 }
 
 void startText(){
@@ -152,11 +157,13 @@ void changeKeyboard(bool & keyboardOSU){
         else if (digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
+            refillDisplay();
             Serial.println("starOff");
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW){
             // put the previous entered bits in
             keyboardOSU = false;
+            refillDisplay();
             Serial.println("starOff");
         }
     }
@@ -167,4 +174,15 @@ void displayPress(char input){
     display.fillRect(displayCursorColumn, 0, 12, 16, BLACK);
     display.print(input);
     display.display();
+}
+
+void refillDisplay(){
+    for (i = 0; i < 9; i++){
+        if (binary[i] == '0'){
+            pressZero();
+        }
+        else if (binary[i] == '1'){
+            pressOne();
+        }
+    }
 }
