@@ -1,5 +1,5 @@
 import serial
-#import time
+import time
 import pyautogui
 
 pyautogui.FAILSAFE = True
@@ -9,16 +9,11 @@ pyautogui.FAILSAFE = True
 # put your usb port as the first argument
 # put your baud rate as the second argument
 
-serialcomm = serial.Serial('/dev/cu.usbserial-10', 9600)
-
-serialcomm.timeout = 1
+serialcomm = serial.Serial('/dev/cu.usbserial-10', 9600, timeout=1, rtscts=True)
 
 def main():
-    fromSerial = serialcomm.readline().decode('ascii')
-    serialcomm.close
-
-    if len(fromSerial) < 8:
-        raise Error("Input must be a 8-bit binary string")
+    fromSerial = serialcomm.readline().decode('ascii').strip()
+    #serialcomm.close
 
     if fromSerial == "starOn":
         # for switching to osu keyboard down the line
@@ -28,13 +23,19 @@ def main():
         # for switching back to binary keyboard down the line
         return
     
+    if len(fromSerial) == 8:
+        decimal_value = int(fromSerial, 2)
+        asciiKey = chr(decimal_value)
+
+        print(asciiKey)
+
+        time.sleep(1)
+        pyautogui.typewrite(asciiKey, interval=0.25)
+        # type the asciiKey with quarter-second pause in between each key
     
     
-    decimal_value = int(fromSerial, 2) 
-    asciiKey = chr(decimal_value)
-
-    pyautogui.write(asciiKey, interval=0.25)
-    # type the asciiKey with quarter-second pause in between each key
-
     main()
     # repeatedly run this because someone will be typing something. 
+
+main()
+# activate main in the first place
