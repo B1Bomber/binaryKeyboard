@@ -20,10 +20,12 @@ int displayCursorColumn = 12;
 // increases by 12
 
 char binary[9];
-
 int binaryIndex = 0;
 
+const int keyInputDelay = 350;
+
 bool osuKeyboard = false;
+const int osuKeyInputDelay = 250;
 
 void setup(){
     Serial.begin(9600);
@@ -44,15 +46,15 @@ void loop(){
     while (binaryIndex < 8){
         if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressZero();
-            delay(350);
+            delay(keyInputDelay);
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressOne();
-            delay(350);
+            delay(keyInputDelay);
         }
         else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
             pressEnter();
-            delay(350);
+            delay(keyInputDelay);
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(oneButton) == HIGH){
             osuKeyboard = true;
@@ -64,11 +66,11 @@ void loop(){
         }
         else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
             pressBack();
-            delay(350);
+            delay(keyInputDelay);
         }
         else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
             pressClear();
-            delay(350);
+            delay(keyInputDelay);
         }
     }
 
@@ -155,12 +157,12 @@ void changeKeyboard(bool & keyboardOSU){
         if (digitalRead(zeroButton) == LOW){
             // press z key
             Serial.println("Z");
-            delay(250);
+            delay(osuKeyInputDelay);
         }
         else if (digitalRead(oneButton) == LOW){
             // press x key
             Serial.println("X");
-            delay(250);
+            delay(osuKeyInputDelay);
         }
         else if (digitalRead(enterButton) == LOW){
             // put the previous entered bits in
