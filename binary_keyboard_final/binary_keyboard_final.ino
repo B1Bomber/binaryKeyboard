@@ -182,6 +182,7 @@ void changeKeyboard(bool & keyboardOSU){
 void displayPress(char input){
     display.setCursor(displayCursorColumn, 0);
     display.fillRect(displayCursorColumn, 0, 12, 16, BLACK);
+    // display.fillRect(x, y, w, z)
     display.print(input);
     display.display();
 }
