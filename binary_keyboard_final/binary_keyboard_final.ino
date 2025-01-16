@@ -43,7 +43,7 @@ void setup(){
 }
 
 void loop(){
-    while (binaryIndex < 8){
+    while (binaryIndex < 9){
         if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressZero();
             delay(keyInputDelay);
