@@ -21,7 +21,7 @@
 
 `binary_keyboard_env` contains the Python environment for this project. 
 
-`LICENSE`
+`LICENSE GNU General Public License v3.0
 
 `README.md` Congratulations on reading this file!
 
