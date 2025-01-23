@@ -1,6 +1,8 @@
 import serial
 import time
 import pyautogui
+import platform
+
 
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
@@ -10,6 +12,18 @@ pyautogui.FAILSAFE = True
 # put your baud rate as the second argument
 
 serialcomm = serial.Serial('/dev/cu.usbserial-110', 9600, timeout=1, rtscts=True)
+
+def normalKeyboard(inputFromSerial):
+    if len(inputFromSerial) == 8:
+        decimal_value = int(inputFromSerial, 2)
+        asciiKey = chr(decimal_value)
+
+        print(asciiKey)
+
+        time.sleep(0.5)
+        pyautogui.typewrite(asciiKey, interval=0.25)
+        # type the asciiKey with quarter-second pause in between each key
+    return
 
 def main():
     fromSerial = serialcomm.readline().decode('ascii').strip()
@@ -23,16 +37,7 @@ def main():
         # for switching back to binary keyboard down the line
         return
     
-    if len(fromSerial) == 8:
-        decimal_value = int(fromSerial, 2)
-        asciiKey = chr(decimal_value)
-
-        print(asciiKey)
-
-        time.sleep(0.5)
-        pyautogui.typewrite(asciiKey, interval=0.25)
-        # type the asciiKey with quarter-second pause in between each key
-    
+    normalKeyboard(fromSerial)
     
     main()
     # repeatedly run this because someone will be typing something. 
