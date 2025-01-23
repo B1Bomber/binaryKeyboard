@@ -1,6 +1,8 @@
 import serial
 import time
 import pyautogui
+import platform
+
 
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
