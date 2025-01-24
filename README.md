@@ -1,7 +1,7 @@
 # binaryKeyboard
 
 ## Arduino Files
-`serialTest` contains the Arduino code used for testing the serial port. 
+`serialTest` contains the Arduino code used to test the serial port. 
 
 `binary_keyboard_LCD` contains the Arduino code from the LCD display implementation. This has been discontinued in favor of the OLED implementations. 
 
