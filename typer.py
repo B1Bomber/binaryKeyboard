@@ -59,5 +59,6 @@ def main():
     main()
     # repeatedly run this because someone will be typing something. 
 
+detectPort()
 main()
 # activate main in the first place
