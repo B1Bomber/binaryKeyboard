@@ -3,13 +3,30 @@ import time
 import pyautogui
 import platform
 
-
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
+# remove in the final version
 
-#serialcomm = serial.Serial('/dev/cu.usbserial-1120', 9600)
-# put your usb port as the first argument
-# put your baud rate as the second argument
+def detectPort():
+    # Faster implementation may be to use serial.tools.list_ports.comports() 
+    # This generates a list of valid ports and then check the valid ports against serial
+    if platform.system() == 'Windows':
+        # Windows has 256 possible COM ports (1 to 256)
+        # Loop through all 256 to find where the keyboard is connected to
+        # Should be the first few, so run time should be low?
+
+        return
+    elif platform.system() == 'Darwin':
+        # for MacOS, 10000 possible ports
+        # That number is quite big, runtime will be long
+
+        return
+    else:
+        print("You are either on Linux or an esoteric system. Please input the port manually or implement port detection for your specific system.")
+        #serialcomm = serial.Serial('/dev/cu.usbserial-1120', 9600, timeout=1, rtscts=True)
+        # put your usb port as the first argument
+        # put your baud rate as the second argument
+        return
 
 serialcomm = serial.Serial('/dev/cu.usbserial-110', 9600, timeout=1, rtscts=True)
 
