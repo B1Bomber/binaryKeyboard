@@ -26,3 +26,4 @@
 `README.md` Congratulations on reading this file!
 
 ## Tutorial
+Read this [manual](https://docs.google.com/document/d/131jxqDxg6rdgfoZZD68hpaoMgKV9Y7bRPiuu5lFj_eU/edit?usp=sharing) for the full setup and documentation. Currently, it is still a work in progress.
