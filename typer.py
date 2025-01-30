@@ -10,16 +10,19 @@ pyautogui.FAILSAFE = True
 def detectPort():
     # Faster implementation may be to use serial.tools.list_ports.comports() 
     # This generates a list of valid ports and then check the valid ports against serial
+
     if platform.system() == 'Windows':
         # Windows has 256 possible COM ports (1 to 256)
         # Loop through all 256 to find where the keyboard is connected to
         # Should be the first few, so run time should be low?
-        for i in range(1, 256):
+
+        portsList = serial.tools.list_ports.comports()
+
+        for port in portsList:
             try:
-                serialcomm = serial.Serial('COM' + str(i), 9600, timeout=1, rtscts=True)
-                serialcomm.close()
-                return
-            except serial.SerialException:
+                serialcomm = serial.Serial(port, 9600, timeout=1, rtscts=True)
+                return serialcomm
+            except (serial.SerialException, OSError):
                 pass
 
         return
@@ -27,12 +30,13 @@ def detectPort():
         # for MacOS, 10000 possible ports
         # That number is quite big, runtime will be long
 
-        for i in range(10000):
+        portsList = serial.tools.list_ports.comports()
+
+        for port in portsList:
             try:
-                serialcomm = serial.Serial('/dev/cu.usbmodem' + str(i), 9600, timeout=1, rtscts=True)
-                serialcomm.close()
-                return
-            except serial.SerialException:
+                serialcomm = serial.Serial(port, 9600, timeout=1, rtscts=True)
+                return serialcomm
+            except (serial.SerialException, OSError):
                 pass
 
         return
@@ -42,8 +46,6 @@ def detectPort():
         # put your usb port as the first argument
         # put your baud rate as the second argument
         return
-
-serialcomm = serial.Serial('/dev/cu.usbserial-110', 9600, timeout=1, rtscts=True)
 
 def normalKeyboard(inputFromSerial):
     if len(inputFromSerial) == 8:
@@ -58,7 +60,8 @@ def normalKeyboard(inputFromSerial):
     return
 
 def main():
-    fromSerial = serialcomm.readline().decode('ascii').strip()
+    openPort = detectPort()
+    fromSerial = openPort.readline().decode('ascii').strip()
     #serialcomm.close
 
     if fromSerial == "starOn":
