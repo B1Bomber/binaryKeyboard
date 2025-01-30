@@ -14,11 +14,26 @@ def detectPort():
         # Windows has 256 possible COM ports (1 to 256)
         # Loop through all 256 to find where the keyboard is connected to
         # Should be the first few, so run time should be low?
+        for i in range(1, 256):
+            try:
+                serialcomm = serial.Serial('COM' + str(i), 9600, timeout=1, rtscts=True)
+                serialcomm.close()
+                return
+            except serial.SerialException:
+                pass
 
         return
     elif platform.system() == 'Darwin':
         # for MacOS, 10000 possible ports
         # That number is quite big, runtime will be long
+
+        for i in range(10000):
+            try:
+                serialcomm = serial.Serial('/dev/cu.usbmodem' + str(i), 9600, timeout=1, rtscts=True)
+                serialcomm.close()
+                return
+            except serial.SerialException:
+                pass
 
         return
     else:
