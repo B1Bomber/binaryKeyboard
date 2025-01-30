@@ -68,13 +68,15 @@ def main():
     #serialcomm.close
 
     if fromSerial == "starOn":
-        # for switching to osu keyboard down the line
-        return
-    
-    if fromSerial == "starOff":
-        # for switching back to binary keyboard down the line
-        return
-    
+        # for switching to osu keyboard
+        while True:
+            if fromSerial == "starOff":
+                break
+            if fromSerial == "z":
+                pyautogui.typewrite("z", interval=0.25)
+            elif fromSerial == "x":
+                pyautogui.typewrite("x", interval=0.25)
+
     normalKeyboard(fromSerial)
     
     main()
