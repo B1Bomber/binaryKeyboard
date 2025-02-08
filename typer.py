@@ -9,9 +9,6 @@ pyautogui.FAILSAFE = True
 # remove in the final version
 
 def detectPort():
-    # Faster implementation may be to use serial.tools.list_ports.comports() 
-    # This generates a list of valid ports and then check the valid ports against serial
-
     if platform.system() == 'Windows':
         # Windows has 256 possible COM ports (1 to 256)
         # Loop through all 256 to find where the keyboard is connected to
