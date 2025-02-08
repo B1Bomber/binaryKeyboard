@@ -67,6 +67,9 @@ def main():
     fromSerial = openPort.readline().decode('ascii').strip()
     #serialcomm.close
 
+    # testing 
+    fromSerial = "starOn"
+
     if fromSerial == "starOn":
         # for switching to osu keyboard
         while True:
