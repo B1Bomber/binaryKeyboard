@@ -1,4 +1,5 @@
 import serial
+import serial.tools.list_ports
 import time
 import pyautogui
 import platform
@@ -16,16 +17,17 @@ def detectPort():
         # Loop through all 256 to find where the keyboard is connected to
         # Should be the first few, so run time should be low?
 
-        portsList = serial.tools.list_ports.comports()
+        portsList = list(serial.tools.list_ports.comports())
 
         for port in portsList:
             try:
-                serialcomm = serial.Serial(port, 9600, timeout=1, rtscts=True)
+                serialcomm = serial.Serial(port.device, 9600, timeout=1, rtscts=True)
+                #print(port.device)
                 return serialcomm
-            except (serial.SerialException, OSError):
+            except (OSError, serial.SerialException):
                 pass
 
-        return
+        raise Exception("Sorry, no port found.") 
     elif platform.system() == 'Darwin':
         # for MacOS, 10000 possible ports
         # That number is quite big, runtime will be long
@@ -34,15 +36,19 @@ def detectPort():
 
         for port in portsList:
             try:
-                serialcomm = serial.Serial(port, 9600, timeout=1, rtscts=True)
+                serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
+                print(port.device)
                 return serialcomm
-            except (serial.SerialException, OSError):
+            except (OSError, serial.SerialException):
                 pass
 
-        return
+        raise Exception("Sorry, no port found.") 
     else:
         print("You are either on Linux or an esoteric system. Please input the port manually or implement port detection for your specific system.")
-        #serialcomm = serial.Serial('/dev/cu.usbserial-1120', 9600, timeout=1, rtscts=True)
+        serialPort = '/dev/cu.usbserial-1120'
+        # put your port here
+
+        serialcomm = serial.Serial(serialPort, 9600, timeout=1, rtscts=True)
         # put your usb port as the first argument
         # put your baud rate as the second argument
         return
