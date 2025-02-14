@@ -12,7 +12,9 @@
 `binary_keyboard_final` contains the Arduino code from the 16x128 OLED implementation. This is the most updated version. 
 
 ## Python Files
-`typingTesting.py` tests the typing and the serial port on the Python side. 
+`typingTesting.py` tests the serial port on the Python side. 
+
+`pyautoguiTest.py` tests the pyautogui library for typing and mouse movements. 
 
 `typer.py` is the most updated version of the Python typing script. 
 
