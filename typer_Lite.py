@@ -4,6 +4,10 @@ import time
 import pyautogui
 import platform
 
+import sys
+print(sys.getrecursionlimit())
+sys.setrecursionlimit(9000)
+
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
 # remove in the final version
@@ -68,14 +72,6 @@ def main():
     openPort = detectPort()
     fromSerial = openPort.readline().decode('ascii').strip()
 
-    if fromSerial == "starOn":
-        # for switching to osu keyboard down the line
-        return
-    
-    if fromSerial == "starOff":
-        # for switching back to binary keyboard down the line
-        return
-    
     normalKeyboard(fromSerial)
 
     openPort.close
@@ -83,6 +79,7 @@ def main():
 
     main()
     # repeatedly run this because someone will be typing something. 
+    return
 
 main()
 # activate main in the first place
