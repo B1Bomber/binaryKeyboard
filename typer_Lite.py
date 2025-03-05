@@ -4,10 +4,6 @@ import time
 import pyautogui
 import platform
 
-import sys
-print(sys.getrecursionlimit())
-sys.setrecursionlimit(9000)
-
 pyautogui.FAILSAFE = True
 # ensures that moving mouse to the upper-left will exit program
 # remove in the final version
