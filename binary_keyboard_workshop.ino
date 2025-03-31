@@ -12,9 +12,9 @@ const int reset = -1;
 
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, reset);
 
-const int zeroButton = 12;
-const int oneButton = 11;
-const int enterButton = 10;
+const int zeroButton = __;
+const int oneButton = __;
+const int enterButton = __;
 
 int displayCursorColumn = 12;
 // increases by 12
@@ -27,9 +27,9 @@ const int keyInputDelay = 350;
 void setup(){
     Serial.begin(9600);
 
-    pinMode(zeroButton, INPUT_PULLUP);
-    pinMode(oneButton, INPUT_PULLUP);
-    pinMode(enterButton, INPUT_PULLUP);
+    pinMode(___, INPUT_PULLUP);
+    pinMode(___, INPUT_PULLUP);
+    pinMode(___, INPUT_PULLUP);
 
     display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
     display.display();
@@ -41,26 +41,23 @@ void setup(){
 
 void loop(){
     while (binaryIndex < 8){
-        if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
+        if (digitalRead(___) == LOW && digitalRead(___) == HIGH && digitalRead(___) == HIGH){
             pressZero();
             delay(keyInputDelay);
         }
-        else if (digitalRead(oneButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(enterButton) == HIGH){
+        else if (digitalRead(___) == LOW && digitalRead(___) == HIGH && digitalRead(___) == HIGH){
             pressOne();
             delay(keyInputDelay);
         }
-        else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
+        else if (digitalRead(___) == LOW && digitalRead(___) == HIGH && digitalRead(___) == HIGH){
             pressEnter();
             delay(keyInputDelay);
         }
-        else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(oneButton) == HIGH){
-
-        }
-        else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
+        else if (digitalRead(___) == LOW && digitalRead(___) == LOW && digitalRead(___) == HIGH){
             pressBack();
             delay(keyInputDelay);
         }
-        else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
+        else if (digitalRead(___) == LOW && digitalRead(___) == LOW && digitalRead(___) == LOW){
             pressClear();
             delay(keyInputDelay);
         }
