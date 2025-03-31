@@ -11,7 +11,7 @@
 
 `binary_keyboard_final` contains the Arduino code from the 16x128 OLED implementation. This is the most updated version. 
 
-`binary_keyboard_workshop` contains the Arduino code used for the workshop. This is based on the `binary_keyboard_Lite` implementation and has fill in the blank code. 
+`binary_keyboard_workshop` contains the Arduino code version used for the Project in a Box workshop. This is based on the `binary_keyboard_Lite` implementation and has fill in the blank code. 
 
 ## Python Files
 `typingTesting.py` tests the serial port on the Python side. 
@@ -21,6 +21,8 @@
 `typer.py` is the most updated version of the Python typing script. 
 
 `typer_Lite.py` is the lighter Python typing script. The OSU mode is removed. Only the core features are retained. 
+
+`typer_workshop.py` is the Python typing script version used for the Project in a Box workshop. This is based on the `typer_Lite.py` implementation and has fill in the blank code. 
 
 ## Miscellaneous Files
 `Libraries` contains all the relevant libraries for this project. 
