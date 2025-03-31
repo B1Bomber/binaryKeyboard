@@ -43,7 +43,7 @@ void setup(){
 }
 
 void loop(){
-    while (binaryIndex < 9){
+    while (binaryIndex < 8){
         if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
             pressZero();
             delay(keyInputDelay);
@@ -74,9 +74,35 @@ void loop(){
         }
     }
 
-
-    pressEnter();
-
+    // After the 8 bits are filled. 
+    if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == HIGH && digitalRead(enterButton) == HIGH){
+        pressEnter();
+        delay(keyInputDelay);
+    }
+    else if (digitalRead(oneButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(enterButton) == HIGH){
+        pressEnter();
+        delay(keyInputDelay);
+    }
+    else if (digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH && digitalRead(oneButton) == HIGH){
+        pressEnter();
+        delay(keyInputDelay);
+    }
+    else if (digitalRead(zeroButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(oneButton) == HIGH){
+        osuKeyboard = true;
+        Serial.println("starOn");
+        changeKeyboard(osuKeyboard);
+        delay(500);
+        pressClear();
+        refillDisplay();
+    }
+    else if (digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW && digitalRead(zeroButton) == HIGH){
+        pressBack();
+        delay(keyInputDelay);
+    }
+    else if (digitalRead(zeroButton) == LOW && digitalRead(oneButton) == LOW && digitalRead(enterButton) == LOW){
+        pressClear();
+        delay(keyInputDelay);
+    }
 }
 
 void startText(){
