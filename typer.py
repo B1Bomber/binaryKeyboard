@@ -73,6 +73,8 @@ def main():
 
     if fromSerial == "starOn":
         # for switching to osu keyboard
+        # Better for the function to be inlined 
+        # Less function call overhead for gamers
         while True:
             if fromSerial == "starOff":
                 break
