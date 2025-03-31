@@ -68,14 +68,21 @@ def main():
     openPort = detectPort()
     fromSerial = openPort.readline().decode('ascii').strip()
 
+    # testing 
+    fromSerial = "starOn"
+
     if fromSerial == "starOn":
-        # for switching to osu keyboard down the line
-        return
-    
-    if fromSerial == "starOff":
-        # for switching back to binary keyboard down the line
-        return
-    
+        # for switching to osu keyboard
+        # Better for the function to be inlined 
+        # Less function call overhead for gamers
+        while True:
+            if fromSerial == "starOff":
+                break
+            if fromSerial == "z":
+                pyautogui.typewrite("z", interval=0.15)
+            elif fromSerial == "x":
+                pyautogui.typewrite("x", interval=0.15)
+
     normalKeyboard(fromSerial)
 
     openPort.close
