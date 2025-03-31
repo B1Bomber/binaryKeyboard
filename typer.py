@@ -79,9 +79,9 @@ def main():
             if fromSerial == "starOff":
                 break
             if fromSerial == "z":
-                pyautogui.typewrite("z", interval=0.25)
+                pyautogui.typewrite("z", interval=0.15)
             elif fromSerial == "x":
-                pyautogui.typewrite("x", interval=0.25)
+                pyautogui.typewrite("x", interval=0.15)
 
     normalKeyboard(fromSerial)
 
