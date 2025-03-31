@@ -18,7 +18,7 @@ def detectPort():
 
         for port in portsList:
             try:
-                serialcomm = serial.Serial(port.device, 9600, timeout=1, rtscts=True)
+                serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
                 #print(port.device)
                 return serialcomm
             except (OSError, serial.SerialException):
@@ -47,7 +47,7 @@ def detectPort():
         serialPort = '/dev/cu.usbserial-1120'
         # put your port here
 
-        serialcomm = serial.Serial(serialPort, 9600, timeout=1, rtscts=True)
+        serialcomm = serial.Serial(serialPort, 9600, timeout=None, rtscts=True)
         # put your usb port as the first argument
         # put your baud rate as the second argument
         return

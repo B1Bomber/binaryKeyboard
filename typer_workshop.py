@@ -4,35 +4,20 @@ import time
 import pyautogui
 import platform
 
-import sys
-print(sys.getrecursionlimit())
-sys.setrecursionlimit(9000)
-
-pyautogui.FAILSAFE = True
-# ensures that moving mouse to the upper-left will exit program
-# remove in the final version
-
 def detectPort():
     if platform.system() == 'Windows':
-        # Windows has 256 possible COM ports (1 to 256)
-        # Loop through all 256 to find where the keyboard is connected to
-        # Should be the first few, so run time should be low?
-
         portsList = list(serial.tools.list_ports.comports())
 
         for port in portsList:
             try:
                 serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
-                #print(port.device)
+                print(port.device)
                 return serialcomm
             except (OSError, serial.SerialException):
                 pass
 
         raise Exception("Sorry, no port found.") 
     elif platform.system() == 'Darwin':
-        # for MacOS, 10000 possible ports
-        # That number is quite big, runtime will be long
-
         portsList = serial.tools.list_ports.comports()
 
         for port in portsList:
@@ -58,28 +43,20 @@ def detectPort():
 
 def normalKeyboard(inputFromSerial):
     if len(inputFromSerial) == 8:
-        decimal_value = int(inputFromSerial, 2)
-        asciiKey = chr(decimal_value)
+        decimal_value = int(___, 2)
+        asciiKey = chr(___)
 
-        print(asciiKey)
-
-        time.sleep(0.25)
-        pyautogui.typewrite(asciiKey, interval=0.25)
-        # type the asciiKey with quarter-second pause in between each key
+        pyautogui.typewrite(___, interval=___)
     return
 
 def main():
     openPort = detectPort()
     fromSerial = openPort.readline().decode('ascii').strip()
-
+    
     normalKeyboard(fromSerial)
 
     openPort.close
-    # Just in case there are memory leaks
 
     main()
-    # repeatedly run this because someone will be typing something. 
-    return
 
 main()
-# activate main in the first place
