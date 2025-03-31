@@ -7,6 +7,9 @@ int enter = 10;
 
 int col = 1;
 
+int displayCursorColumn = 12;
+// increases by 12
+
 char binary[8] = {};
 char (*previousBinary)[8] = &binary;
 //char previousBinary[8] = {};
