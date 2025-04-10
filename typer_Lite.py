@@ -20,9 +20,11 @@ def detectPort():
         portsList = list(serial.tools.list_ports.comports())
 
         for port in portsList:
+            if (port.device[:3] != "COM"):
+                continue
             try:
                 serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
-                #print(port.device)
+                print(port.device)
                 return serialcomm
             except (OSError, serial.SerialException):
                 pass
@@ -35,7 +37,7 @@ def detectPort():
         portsList = serial.tools.list_ports.comports()
 
         for port in portsList:
-            if (port.device == "/dev/cu.wlan-debug") or (port.device == "/dev/cu.Bluetooth-Incoming-Port"):
+            if (port.device[:18] != "/dev/cu.usbserial-"):
                 continue
             try:
                 serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
