@@ -135,6 +135,7 @@ void pressEnter(){
 
 void pressBack(){
     display.fillRect(displayCursorColumn, 0, 12, 16, BLACK);
+    display.print('_');
     display.display();
     binary[binaryIndex] = NULL;
 }

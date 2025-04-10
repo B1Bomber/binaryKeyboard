@@ -69,13 +69,13 @@ def normalKeyboard(inputFromSerial):
         # type the asciiKey with quarter-second pause in between each key
     return
 
+openPort = detectPort()
 def main():
-    openPort = detectPort()
     fromSerial = openPort.readline().decode('ascii').strip()
 
     normalKeyboard(fromSerial)
 
-    openPort.close
+    #openPort.close
     # Just in case there are memory leaks
 
     main()
