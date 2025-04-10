@@ -26,7 +26,7 @@ def detectPort():
             except (OSError, serial.SerialException):
                 pass
 
-        raise Exception("Sorry, no port found.") 
+        #raise Exception("Sorry, no port found.") 
     elif platform.system() == 'Darwin':
         # for MacOS, 10000 possible ports
         # That number is quite big, runtime will be long
@@ -43,7 +43,7 @@ def detectPort():
             except (OSError, serial.SerialException):
                 pass
 
-        raise Exception("Sorry, no port found.") 
+        #raise Exception("Sorry, no port found.") 
     else:
         print("You are either on Linux or an esoteric system. Please input the port manually or implement port detection for your specific system.")
         serialPort = '/dev/cu.usbserial-1120'
