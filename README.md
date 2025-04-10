@@ -13,6 +13,8 @@
 
 `binary_keyboard_workshop` contains the Arduino code version used for the Project in a Box workshop. This is based on the `binary_keyboard_Lite` implementation and has fill in the blank code. 
 
+`binary_keyboard_ctrl` contains a work-in-progress new implementation of the binary keyboard. 
+
 ## Python Files
 `typingTesting.py` tests the serial port on the Python side. 
 
