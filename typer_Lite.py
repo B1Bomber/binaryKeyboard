@@ -5,7 +5,6 @@ import pyautogui
 import platform
 
 import sys
-print(sys.getrecursionlimit())
 sys.setrecursionlimit(9000)
 
 pyautogui.FAILSAFE = True
@@ -21,9 +20,11 @@ def detectPort():
         portsList = list(serial.tools.list_ports.comports())
 
         for port in portsList:
+            if (port.device[:3] != "COM"):
+                continue
             try:
                 serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
-                #print(port.device)
+                print(port.device)
                 return serialcomm
             except (OSError, serial.SerialException):
                 pass
@@ -36,7 +37,7 @@ def detectPort():
         portsList = serial.tools.list_ports.comports()
 
         for port in portsList:
-            if (port.device == "/dev/cu.wlan-debug") or (port.device == "/dev/cu.Bluetooth-Incoming-Port"):
+            if (port.device[:18] != "/dev/cu.usbserial-"):
                 continue
             try:
                 serialcomm = serial.Serial(port.device, 9600, timeout=None, rtscts=True)
@@ -68,13 +69,13 @@ def normalKeyboard(inputFromSerial):
         # type the asciiKey with quarter-second pause in between each key
     return
 
+openPort = detectPort()
 def main():
-    openPort = detectPort()
     fromSerial = openPort.readline().decode('ascii').strip()
 
     normalKeyboard(fromSerial)
 
-    openPort.close
+    #openPort.close
     # Just in case there are memory leaks
 
     main()
