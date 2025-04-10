@@ -5,7 +5,6 @@ import pyautogui
 import platform
 
 import sys
-print(sys.getrecursionlimit())
 sys.setrecursionlimit(9000)
 
 pyautogui.FAILSAFE = True
