@@ -75,7 +75,7 @@ def main():
 
     normalKeyboard(fromSerial)
 
-    #openPort.close
+    openPort.close
     # Just in case there are memory leaks
 
     main()

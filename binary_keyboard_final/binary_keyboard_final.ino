@@ -22,10 +22,10 @@ int displayCursorColumn = 12;
 char binary[9];
 int binaryIndex = 0;
 
-const int keyInputDelay = 350;
+const int keyInputDelay = 250;
 
 bool osuKeyboard = false;
-const int osuKeyInputDelay = 250;
+const int osuKeyInputDelay = 150;
 
 void setup(){
     Serial.begin(9600);
