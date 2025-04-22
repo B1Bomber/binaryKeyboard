@@ -2,7 +2,6 @@
 #include <Adafruit_GFX.h>
 #include <Wire.h>
 #include <SPI.h>
-// #include "U8x8lib.h"
 
 const int OLED_WIDTH = 128;
 const int OLED_HEIGHT = 16;
