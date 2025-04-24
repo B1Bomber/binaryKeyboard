@@ -12,4 +12,5 @@ PyRect==0.2.0
 PyScreeze==1.0.1
 pyserial==3.5
 pytweening==1.2.0
+PyYAML==6.0.2
 rubicon-objc==0.5.0
