@@ -24,7 +24,7 @@ int displayCursorColumn = 12;
 char binary[9];
 int binaryIndex = 0;
 
-const int keyInputDelay = 300;
+const int keyInputDelay = 350;
 
 void setup(){
     Serial.begin(9600);
