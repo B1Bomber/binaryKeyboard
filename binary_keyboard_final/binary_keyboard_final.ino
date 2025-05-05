@@ -2,6 +2,8 @@
 #include <Adafruit_GFX.h>
 #include <Wire.h>
 #include <SPI.h>
+#include <string.h>
+#include <math.h>
 // #include "U8x8lib.h"
 
 const int OLED_WIDTH = 128;
@@ -106,18 +108,27 @@ void loop(){
 }
 
 void startText(){
-    const char startTextLines[4][10] = {"Welcome to", "PIB Binary", "Keyboard! ", "<________>"};
-    const int length = sizeof(startTextLines) / sizeof(startTextLines[0]);
+    const char startText[] = "Welcome to PIB Binary Keyboard!";
+    const int scrollSpeedDelay = 4;
+    const int yPos = 0;
+    const int delayBeforeEnding = 500;
+    display.setTextSize(2);  
+    display.setTextColor(WHITE);
+    int textWidthPixels = strlen(startText) * 12; 
 
-    for (int i = 0; i < length; i++){
-        display.clearDisplay();
-        display.setTextSize(2);
-        display.setTextColor(WHITE);
-        display.setCursor(0, 0);
-        display.println(startTextLines[i]);
-        delay(2000);
-        display.display();
+    for (int x = display.width(); x >= -textWidthPixels; x--) {
+        display.clearDisplay();     // Clear the buffer before drawing the next frame
+        display.setCursor(x, yPos); // Set the starting position for the text
+        // 'x' decreases each time, moving text left
+
+        display.print(startText);   // Draw the entire text string
+        display.display();          // Update the physical screen with this frame
+        delay(scrollSpeedDelay);    // This delay controls the scrolling speed.
     }
+    delay(delayBeforeEnding);
+    display.clearDisplay(); // Clear the display once scrolling is done
+    display.print("<________>");
+    display.display();
 }
 
 void pressZero(){

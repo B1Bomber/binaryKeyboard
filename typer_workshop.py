@@ -35,13 +35,13 @@ def detectPort():
         raise Exception("Sorry, no port found.") 
     else:
         print("You are either on Linux or an esoteric system. Please input the port manually or implement port detection for your specific system.")
-        serialPort = '/dev/cu.usbserial-1120'
+        serialPort = '/dev/ttyUSB0' 
         # put your port here
 
         serialcomm = serial.Serial(serialPort, 9600, timeout=None, rtscts=True)
         # put your usb port as the first argument
         # put your baud rate as the second argument
-        return
+        return serialcomm
 
 def normalKeyboard(inputFromSerial):
     if len(inputFromSerial) == 8:
