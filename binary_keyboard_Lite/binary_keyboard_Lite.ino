@@ -2,6 +2,8 @@
 #include <Adafruit_GFX.h>
 #include <Wire.h>
 #include <SPI.h>
+#include <string.h>
+#include <math.h>
 // #include "U8x8lib.h"
 
 const int OLED_WIDTH = 128;
